@@ -1,0 +1,4 @@
+# Uncomment the lines below if you have proxy issues
+# Change the proxy URL to your proxy server
+#proxy=http://localhost:8080
+#rejectUnauthorized=false
