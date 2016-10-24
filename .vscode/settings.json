@@ -4,8 +4,8 @@
         "**/.git": true,
         "**/.svn": true,
         "**/.DS_Store": true,
-        "node_modules/": true,
-        "dist/": true,
+        "node_modules/": false,
+        "dist/": false,
         "reports/": true,
         ".vscode/": true,
         "typings/": true
