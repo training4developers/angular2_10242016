@@ -6,10 +6,11 @@ import '../../css/styles.scss';
 
 import { AppComponent } from './app.component';
 import { Colors } from './services/colors';
+import { BetterNumberDirective } from './directives/better-number.directive';
 
 @NgModule({
 	imports: [ BrowserModule, FormsModule ],
-	declarations: [ AppComponent ],
+	declarations: [ AppComponent, BetterNumberDirective ],
 	providers: [ Colors ],
 	bootstrap: [ AppComponent ]
 })
