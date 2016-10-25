@@ -27,6 +27,7 @@ export class Colors {
 	selector: 'my-app',
 	template: `<div>
 		<h1>{{message | lowercase}}</h1>
+		Show Me: <input type="checkbox" [(ngModel)]="showMe">
 		<div *ngIf="showMe">
 			You can see me!
 		</div>
@@ -50,7 +51,7 @@ export class AppComponent {
 
 	message: string = 'Color List';
 
-	
+	showMe: boolean = false;
 	
 	colorFilter: string = '';
 	newColor: string = '';
