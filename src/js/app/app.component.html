@@ -1,2 +1,13 @@
-<h1>Hello World!</h1>
+<form novalidate>
 
+	<div>
+		<label for="first-name">First Name: </label>
+		<input type="text" id="first-name"
+			name="firstName" [(ngModel)]="firstName" required ref-firstNameControl="ngModel">
+		<span *ngIf="!firstNameControl.valid">
+			First Name is required.
+		</span>
+		<br>Value: {{firstName}}
+	</div>
+
+</form>

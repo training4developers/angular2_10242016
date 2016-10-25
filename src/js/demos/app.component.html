@@ -1,0 +1,33 @@
+<div>
+		<h1 [ngClass]="{'classy':birthDayCheckAmt > 10, 'test':showMe}">{{message.text}}</h1>
+		<small>{{ birthDate | date:'HH:mm:ss' }}</small>
+		<div>{{ birthDayCheckAmt | currency:'USD':true:'1.4-4'}}</div>
+		<div>{{birthDayList | slice:1:3}}</div>
+		Show Me: <input type="checkbox" [(ngModel)]="showMe">
+		<div *ngIf="showMe">
+			You can see me!
+		</div>
+
+		<div [ngSwitch]="corporateValue" [ngStyle]="{ 'font-weight': showMe ? 'bold' : 'normal' }">
+			<div *ngSwitchCase=" 'integrity' ">Integrity</div>
+			<div *ngSwitchCase=" 'relationships' ">Relationships</div>
+			<div *ngSwitchCase=" 'commitment' ">Commitment</div>
+			<div *ngSwitchCase=" 'innovation' ">Innovation</div>
+			<div *ngSwitchDefault>World Domination</div>
+		</div>
+
+
+
+		<div>
+			<label for="color-filter">Filter:</label>
+			<input type="text" id="color-filter" [(ngModel)]="colorFilter">
+		</div>
+		<ul>
+			<li *ngFor="let color of sortedColors"><span>{{color}}</span></li>
+		</ul>
+		<div>
+			<label for="new-color">New Color:</label>
+			<input type="text" id="new-color" [(ngModel)]="newColor">
+			<button type="button" (click)="addColor()">Add Color</button>
+		</div>
+	</div>
