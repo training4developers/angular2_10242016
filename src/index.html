@@ -5,6 +5,32 @@
     <title>Comprehensive Angular 2</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+    <script>
+
+      'use strict';
+
+      var baseO = {
+        printName: function() {
+          console.log(this.name);
+        }
+      };
+
+      var o1 = Object.create(baseO);
+      o1.name = 'Bob';
+
+      var o2= Object.create(baseO);
+      o2.name = 'Sally';
+
+      o1.printName();
+      o2.printName();
+
+      console.log(o1.printName === o2.printName);
+
+
+
+    </script>
+  
   </head>
   <body>
     <my-app>Loading...</my-app>

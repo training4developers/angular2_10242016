@@ -27,6 +27,9 @@ export class Colors {
 	selector: 'my-app',
 	template: `<div>
 		<h1>{{message | lowercase}}</h1>
+		<div *ngIf="showMe">
+			You can see me!
+		</div>
 		<div>
 			<label for="color-filter">Filter:</label>
 			<input type="text" id="color-filter" [(ngModel)]="colorFilter">
@@ -46,6 +49,8 @@ export class AppComponent {
 	constructor(private colorSvc: Colors) { }
 
 	message: string = 'Color List';
+
+	
 	
 	colorFilter: string = '';
 	newColor: string = '';
@@ -78,27 +83,4 @@ export class AppComponent {
 		return this.filteredColors.get(this.colorFilter);
 	}
 }
-
-// @Component({
-// 	selector: 'my-app',
-// 	template: '<h1>{{message}}</h1>'
-// })
-// export class AppComponent {
-
-// 	message: string = "Hi Class!";
-
-// }
-
-var t = { id : 2 };
-
-t.id = 3;
-
-Object.defineProperty(t, 'id', {
-	get: function() {
-		return this._id;
-	},
-	set: function(value) {
-		this._id = value;
-	}
-})
 
