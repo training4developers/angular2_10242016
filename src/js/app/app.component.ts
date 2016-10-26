@@ -1,42 +1,87 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
 
-interface MessageForm {
-	message: string;
+@Component({
+	selector: 'view-item',
+	template: `<span>{{item}}</span>
+	<button type="button" (click)="edit()">Edit</button>`
+})
+export class ViewItemComponent {
+
+	@Input()
+	item: string;
+
+	@Output()
+	editItem: EventEmitter<string> = new EventEmitter<string>();
+
+	edit() {
+		this.editItem.emit(this.item);
+	}
+
 }
 
 @Component({
-	selector: 'child-demo',
-	template: `<h3>{{childHeader}}</h3>
-	<input type="text" [(ngModel)]="message">
-	<button type="button" (click)="clickItOrTicket()">
-		Click It or Ticket!
-	</button>`
+	selector: 'edit-item',
+	template: `<span>
+		<input type="text" [(ngModel)]="editItem">
+	</span><button type="button" (click)="save()">Save</button>`
 })
-export class ChildDemoComponent {
-	private _clickCounter: number = 0;
-	message: string = "";
-	clickItOrTicket() {
-		this.clickMe.emit(<MessageForm>{ message: this.message });
-	}
+export class EditItemComponent implements OnInit {
+
+	editItem: string;
+
 	@Input()
-	childHeader: string;
+	item: string;
+
+	ngOnInit() {
+		this.editItem = this.item;
+	}
+
 	@Output()
-	clickMe: EventEmitter<MessageForm> = new EventEmitter<MessageForm>();
+	saveItem: EventEmitter<string> = new EventEmitter<string>();
+
+	save() {
+		this.saveItem.emit(this.editItem);
+	}
+
 }
+
+@Component({
+	selector: 'item-list',
+	template: `<ul>
+		<li *ngFor="let item of items">
+			<view-item *ngIf="itemToEdit !== item" [item]="item"
+				(editItem)="editItem($event)"></view-item>
+			<edit-item *ngIf="itemToEdit === item" [item]="item"
+				(saveItem)="saveItem($event)"></edit-item>
+		</li>
+	</ul>`
+})
+export class ItemListComponent {
+
+	itemToEdit: string = '';
+
+	@Input()
+	items: string[];
+
+	editItem(item: string) {
+		this.itemToEdit = item;
+	}
+
+	saveItem(item: string) {
+		this.items.splice(this.items.indexOf(this.itemToEdit), 1, item);
+		this.itemToEdit = '';
+	}
+
+}
+
 
 @Component({
 	selector: 'my-app',
-	template: `<h1>Parent Demo</h1>
-	<child-demo [childHeader]="parentHeader"
-	(clickMe)="childClicked($event)"></child-demo>`
+	template: `<item-list [items]="colors"></item-list>`
 })
 export class AppComponent {
 
-	parentHeader: string = 'Child Demo';
+	colors: string[] = [ 'red', 'blue', 'orange', 'yellow' ];
 
-	childClicked(messageForm: MessageForm) {
-		console.log('parent: child was clicked');
-		console.log(messageForm.message);
-	}
 }
 
