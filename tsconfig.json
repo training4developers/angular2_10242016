@@ -16,7 +16,8 @@
 	},
 	"exclude": [
 		"node_modules",
-		"src/js/app-ignore"
+		"src/js/app-cars",
+		"src/js/app-demos"
 	],
 	"filesGlob": [
 		"./src/js/**/*.ts",

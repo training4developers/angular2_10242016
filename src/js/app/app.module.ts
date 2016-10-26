@@ -4,7 +4,10 @@ import { FormsModule } from '@angular/forms';
 
 import '../../css/styles.scss';
 
-import { AppComponent, ChildDemoComponent } from './app.component';
+import {
+	AppComponent, ChildDemoComponent
+} from './app.component';
+
 import { Colors } from './services/colors';
 import { BetterNumberDirective } from './directives/better-number.directive';
 

@@ -1,0 +1,62 @@
+import { Component, Input, Output, EventEmitter } from '@angular/core';
+
+let childDemoCounter: number = 0;
+
+@Component({
+	selector: 'child-demo',
+	template: `<h3>{{childHeader}}</h3>
+	<button type="button" (click)="clickItOrTicket()">
+		Click It or Ticket!
+	</button>`
+})
+export class ChildDemoComponent {
+
+	constructor() {
+		childDemoCounter++;
+		console.log(childDemoCounter);
+	}
+
+	clickItOrTicket() {
+		this.clickMe.emit();
+	}
+
+	@Input()
+	childHeader: string;
+
+	@Output()
+	clickMe: EventEmitter<void> = new EventEmitter<void>();
+
+}
+
+@Component({
+	selector: 'parent-demo',
+	template: `<h2>Parent Demo</h2>
+	<child-demo [childHeader]="parentHeader" (click)="childClicked($event)"></child-demo>`
+})
+export class ParentDemoComponent {
+
+	parentHeader: string = "Child Demo";
+
+	childClicked(e: MouseEvent) {
+		console.dir(e);
+		e.preventDefault();
+		e.stopPropagation();
+		console.log('parent: child was clicked');
+	}
+
+}
+
+// grand parent component
+@Component({
+	selector: 'my-app',
+	template: `<h1>Grandparent Demo</h1>
+	<parent-demo (click)="childClicked()"></parent-demo>`
+})
+export class AppComponent {
+
+	childClicked() {
+		console.log('grandparent: child was clicked');
+	}
+
+}
+
