@@ -1,0 +1,34 @@
+import { Component } from '@angular/core';
+
+@Component({
+	selector: 'my-app',
+	template: require('./app.component.html'),
+	styles: [require('./app.component.scss')]
+})
+export class AppComponent {
+
+	firstName: string = '';
+	age: number = 13;
+	salary: number = 0;
+	cubeColor: string = '#92e49b';
+	terminationDate: string = '2016-10-14';
+	retirementOption: string = 'live in villages';
+	hearAboutUs: string = '';
+	favStates: string = '';
+
+	hearAboutUsOptions: any[] = [
+		{ value: 'search engine', caption: 'Search Engine' },
+		{ value: 'word of mouth', caption: 'Word of Mouth' },
+		{ value: 'tv commercial', caption: 'TV Commercial' }
+	];
+
+	stateOptions: any[] = [
+		{ code: 'MD', caption: 'Maryland' },
+		{ code: 'VA', caption: 'Virginia' },
+		{ code: 'FL', caption: 'Florida' },
+		{ code: 'NV', caption: 'Nevada' },
+		{ code: 'TS', caption: 'Telengana' }
+	];
+
+}
+

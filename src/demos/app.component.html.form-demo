@@ -1,0 +1,111 @@
+<form novalidate>
+
+	<div>
+		<label for="first-name">First Name: </label>
+		<input type="text" id="first-name"
+			name="firstName" [(ngModel)]="firstName" required
+			ref-firstNameControl="ngModel" list="browsers">
+		<span *ngIf="!firstNameControl.valid">
+			First Name is required.
+		</span>
+		<br>Value: {{firstName}}
+	</div>
+
+	<datalist id="browsers">
+		<option value="Internet Explorer">
+		<option value="Firefox">
+		<option value="Chrome">
+		<option value="Opera">
+		<option value="Safari">
+	</datalist>
+
+	<div>
+		<label for="age">Age: </label>
+		<input type="text" id="age" name="age" [(ngModel)]="age" betterNumber>
+		<br>Value: {{age}}
+	</div>
+
+	<div>
+		<label for="salary">Salary</label>
+		<input type="range" id="salary" name="salary" [(ngModel)]="salary"
+			min="0" max="1000">
+		<br>Value: {{salary}}
+	</div>
+
+	<div>
+		<label for="cube-color">Cube Color</label>
+		<input type="color" id="cube-color" name="cubeColor"
+			[(ngModel)]="cubeColor">
+		<br>Value: {{cubeColor}}
+	</div>
+
+	<div>
+		<label for="termination-date">Termination Date</label>
+		<input type="date" id="termination-date" name="terminationDate"
+			[(ngModel)]="terminationDate">
+		<br>Value: {{terminationDate}}
+	</div>
+
+	<fieldset>
+		<legend>Retirement Options</legend>
+
+		<div>
+			<label for="sail-away-on-boat">Sail away on a boat</label>
+			<input type="radio" id="sail-away-on-boat" name="retirementOption"
+				[(ngModel)]="retirementOption" value="sail away on a boat">
+		</div>
+
+		<div>
+			<label for="live-in-villages">Live in the The Villages</label>
+			<input type="radio" id="live-in-villages" name="retirementOption"
+				[(ngModel)]="retirementOption" value="live in villages">
+		</div>
+
+		<div>
+			<label for="keep-on-working">Keep on Working</label>
+			<input type="radio" id="keep-on-working" name="retirementOption"
+				[(ngModel)]="retirementOption" value="keep on working">
+		</div>
+
+	</fieldset>
+	<br>Value: {{retirementOption}}
+
+	<div>
+		<label for="comments">Comments: </label>
+		<textarea id="comments" name="comments" [(ngModel)]="comments"></textarea>
+		<br>Value: {{comments}}
+	</div>
+
+	<div>
+		<label>How did you hear about us?</label>
+		<select id="hear-about-us" name="hearAboutUs" [(ngModel)]="hearAboutUs">
+			<option value="">Select One...</option>
+			<option *ngFor="let hearAboutUsOption of hearAboutUsOptions" [value]="hearAboutUsOption.value">
+				{{hearAboutUsOption.caption}}
+			</option>
+		</select>
+		<br>Value: {{hearAboutUs}}
+	</div>
+
+	<div>
+		<label>How did you hear about us?</label>
+		<select title="Select One Please..." id="hear-about-us" name="hearAboutUs" [(ngModel)]="hearAboutUs" size="5">
+			<option *ngFor="let hearAboutUsOption of hearAboutUsOptions" [value]="hearAboutUsOption.value">
+				{{hearAboutUsOption.caption}}
+			</option>
+		</select>
+		<br>Value: {{hearAboutUs}}
+	</div>
+
+	<div>
+		<label>Favorite States</label>
+		<select id="fav-states" name="favStates" [(ngModel)]="favStates" size="5" multiple>
+			<option *ngFor="let stateOption of stateOptions" [value]="stateOption.code">
+				{{stateOption.caption}}
+			</option>
+		</select>
+		<br>Value: {{favStates}}
+	</div>
+
+
+</form>

@@ -3,7 +3,7 @@ import { Component, Input } from '@angular/core';
 let childDemoCounter: number = 0;
 
 @Component({
-	selector: 'child-demo',
+	selector: 'child-demo",
 	template: '<h2>{{childHeader}}</h2>'
 })
 export class ChildDemoComponent {

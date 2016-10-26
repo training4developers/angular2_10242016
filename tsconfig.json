@@ -15,7 +15,8 @@
 		"suppressImplicitAnyIndexErrors": true
 	},
 	"exclude": [
-		"node_modules"
+		"node_modules",
+		"src/js/app-ignore"
 	],
 	"filesGlob": [
 		"./src/js/**/*.ts",

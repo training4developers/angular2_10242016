@@ -39,7 +39,7 @@ module.exports = {
       // from this configuration
       {
         test: /\.ts$/,
-        exclude: [/\.(spec|e2e)\.ts$/],
+        exclude: [ /\.(spec|e2e)\.ts$/ ],
         loader: 'ts'
       },
       // processes JSON files, useful for config files and mock data
