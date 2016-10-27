@@ -5,24 +5,13 @@ import { FormsModule } from '@angular/forms';
 import '../../css/styles.scss';
 
 import {
-	AppComponent, DataTableComponent, DataColumnViewStringComponent,
-	DataColumnViewCurrencyComponent, DataColumnViewNumberComponent,
-	DataColumnViewLookupComponent, DataColumnViewButtonsComponent,
-	DataColumnEditButtonsComponent, DataColumnEditStringComponent,
-	DataColumnEditNumberComponent, DataColumnEditCurrencyComponent,
-	DataColumnEditColorComponent, DataColumnViewColorComponent,
-	DataColumnEditLookupComponent
+	AppComponent
 } from './app.component';
 
 @NgModule({
-	imports: [ BrowserModule, FormsModule ],
-	declarations: [ AppComponent, DataTableComponent,
-		DataColumnViewStringComponent, DataColumnViewCurrencyComponent,
-		DataColumnViewNumberComponent, DataColumnViewLookupComponent,
-		DataColumnViewButtonsComponent, DataColumnEditButtonsComponent,
-		DataColumnEditStringComponent, DataColumnEditNumberComponent,
-		DataColumnEditCurrencyComponent, DataColumnEditColorComponent,
-		DataColumnViewColorComponent, DataColumnEditLookupComponent ],
+	imports: [ BrowserModule,
+		FormsModule ],
+	declarations: [ AppComponent ],
 	bootstrap: [ AppComponent ]
 })
 export class AppModule { }
