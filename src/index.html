@@ -5,14 +5,95 @@
     <title>Comprehensive Angular 2</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <style>
+    <script>
 
-      * {
-        display:block;
-        padding:10px;
-        border: 2px solid blue;
-      }
-</style>
+      // class MyPromise {
+
+      //   resolve(data) {
+      //     this.resolveFns.forEach(fn => fn(data));
+      //   }
+
+      //   reject() { }
+
+      //   constructor(asyncFn) {
+      //     this.resolveFns = [];
+      //     asyncFn(this.resolve.bind(this), this.reject.bind(this));
+      //   }
+
+      //   then(fn) {
+      //     this.resolveFns.push(fn);
+      //   }
+
+      // }
+
+      // var p = new MyPromise(function(res, rej) {
+      //   setTimeout(function() { res('some data'); }, 2000);
+      // });
+
+      // p.then(function(results) {
+      //   console.log(results);
+      // });
+
+      // console.log('waiting for some data');
+
+    </script>
+    <script>
+
+      // const youngMan = new Promise(function youngLady(resolve, reject) {
+
+      //   setTimeout(function() {
+      //     resolve("she loves him alot");
+      //   }, 2000);
+
+      // });
+
+      // youngMan.then(function(results) {
+      //   console.log(results);
+      //   console.log('she said yes!');
+
+      //   console.log('time to find a location');
+
+      //   //throw Error('no places');
+      //   return Promise.reject('no places');
+
+      //   // return new Promise(function(resolve, reject) {
+      //   //   setTimeout(function() {
+      //   //     resolve('found a place');
+      //   //   }, 2000);
+      //   // });
+
+
+      // }).then(function(results) {
+
+      //   console.log(results);
+      //   console.log('time to move on to the next step...')
+
+      // }).catch(function(results) {
+      //   console.log(results);
+      // });
+
+      // console.log('young man is waiting...');
+
+    </script>
+    <script>
+
+      const p1 = new Promise(resolve => setTimeout(() => resolve('a'), 2000));
+      const p2 = new Promise(resolve => setTimeout(() => resolve('b'), 4000));
+      const p3 = new Promise(resolve => setTimeout(() => resolve('c'), 6000));
+      const p4 = new Promise(resolve => setTimeout(() => resolve('d'), 8000));
+
+      p1.then(results => console.log(results));
+      p1.then(results => console.log(results));
+      p2.then(results => console.log(results));
+      p3.then(results => console.log(results));
+      p4.then(results => console.log(results));
+
+      Promise.all([p1,p2,p3,p4]).then(results => {
+        console.log('all done');
+      });
+
+
+    </script>
   </head>
   <body>
     <my-app class="container-fluid">Loading...</my-app>
