@@ -102,7 +102,6 @@ export class DataColumnViewStringComponent {
 @Component({
 	selector: 'data-column-edit-string',
 	template: `<input type="text" [(ngModel)]="data" (blur)="blur()">`,
-	styles: [ 'input { width: 100px }' ],
 	providers: [{
     provide: NG_VALUE_ACCESSOR,
     useExisting: forwardRef(() => DataColumnEditStringComponent),
@@ -127,7 +126,6 @@ export class DataColumnViewCurrencyComponent {
 @Component({
 	selector: 'data-column-edit-currency',
 	template: `<input type="number" [(ngModel)]="data" (blur)="blur()">`,
-	styles: [ 'input { width: 100px }' ],
 	providers: [{
     provide: NG_VALUE_ACCESSOR,
     useExisting: forwardRef(() => DataColumnEditCurrencyComponent),
@@ -153,7 +151,6 @@ export class DataColumnViewNumberComponent {
 @Component({
 	selector: 'data-column-edit-number',
 	template: `<input type="number" [(ngModel)]="data" (blur)="blur()">`,
-	styles: [ 'input { width: 100px }' ],
 	providers: [{
     provide: NG_VALUE_ACCESSOR,
     useExisting: forwardRef(() => DataColumnEditNumberComponent),
@@ -198,13 +195,10 @@ export class DataColumnEditLookupComponent extends BaseEditNumberComponent {
 	options: SelectOption[];
 }
 
-
 @Component({
 	selector: 'data-column-view-color',
 	template: `<div [ngStyle]="{ 'background-color':data }"></div>`,
-	styles: [
-		'div { width:50px; height:20px; display:inline-block; }'
-	]
+	styles: [ 'div { width:50px; height:20px; display:inline-block; }' ]
 })
 export class DataColumnViewColorComponent {
 
@@ -326,9 +320,25 @@ export class DataColumnEditButtonsComponent {
 		</tbody>
 	</table>`,
 	styles: [
-		':host { border: 1px solid black }',
-		'caption { color:black; caption-side:top; font-size:1.1rem; }',
-		'th, .action-buttons  { text-align:center }'
+		':host { border: 1px solid #dddddd; border-radius: 5px; }',
+		'caption { color:black; caption-side:top; font-size:1.1rem; font-weight:bold; }',
+		'th, .action-buttons  { text-align:center }',
+		`/deep/ select, /deep/ input, /deep/ textarea {
+			-webkit-appearance: none;
+			-moz-appearance: none;
+			appearance: none;
+			border-radius:0px;
+			padding:2px;
+			border:2px inset rgb(238,238,238);
+			background-color:white;
+			line-height:inherit;
+			height:32px;
+			width:100px;
+		}`,
+		`/deep/ input[type=color] {
+			padding:0px;
+			width:50px;
+		}`
 	]
 })
 export class DataTableComponent {
