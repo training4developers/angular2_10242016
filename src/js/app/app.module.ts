@@ -10,7 +10,8 @@ import {
 	DataColumnViewLookupComponent, DataColumnViewButtonsComponent,
 	DataColumnEditButtonsComponent, DataColumnEditStringComponent,
 	DataColumnEditNumberComponent, DataColumnEditCurrencyComponent,
-	DataColumnEditColorComponent, DataColumnViewColorComponent
+	DataColumnEditColorComponent, DataColumnViewColorComponent,
+	DataColumnEditLookupComponent
 } from './app.component';
 
 @NgModule({
@@ -21,7 +22,7 @@ import {
 		DataColumnViewButtonsComponent, DataColumnEditButtonsComponent,
 		DataColumnEditStringComponent, DataColumnEditNumberComponent,
 		DataColumnEditCurrencyComponent, DataColumnEditColorComponent,
-		DataColumnViewColorComponent ],
+		DataColumnViewColorComponent, DataColumnEditLookupComponent ],
 	bootstrap: [ AppComponent ]
 })
 export class AppModule { }

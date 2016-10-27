@@ -16,9 +16,9 @@ interface SelectOption {
 
 const noop = () => { };
 
-export class BaseDataColumnEditComponent implements ControlValueAccessor {
+export class BaseEditStringComponent implements ControlValueAccessor {
 
-	private _data: string;
+	protected _data: string;
 	
 	blur() {
 		this.propagateTouched();
@@ -52,6 +52,43 @@ export class BaseDataColumnEditComponent implements ControlValueAccessor {
 
 }
 
+export class BaseEditNumberComponent implements ControlValueAccessor {
+
+	private _data: number;
+	
+	blur() {
+		this.propagateTouched();
+	}
+
+	get data(): any {
+		return this._data;
+	};
+
+	set data(value: any) {
+		this._data = parseInt(value, 10);
+		this.propagateChange(this._data);
+	};
+
+	propagateChange = (_: any) => {};
+	propagateTouched = () => {};
+
+  writeValue(value: number) {
+		if (value !== undefined) {
+	    this.data = value;
+		}
+  }
+
+	registerOnChange(fn: any) {
+		this.propagateChange = fn;
+	}
+
+	registerOnTouched(fn: any) {
+		this.propagateTouched = fn;
+	}
+
+}
+
+
 @Component({
 	selector: 'data-column-view-string',
 	template: `{{data}}`
@@ -72,7 +109,7 @@ export class DataColumnViewStringComponent {
     multi: true
 	}]
 })
-export class DataColumnEditStringComponent extends BaseDataColumnEditComponent { }
+export class DataColumnEditStringComponent extends BaseEditStringComponent { }
 
 @Component({
 	selector: 'data-column-view-currency',
@@ -97,7 +134,7 @@ export class DataColumnViewCurrencyComponent {
     multi: true
 	}]
 })
-export class DataColumnEditCurrencyComponent extends BaseDataColumnEditComponent { }
+export class DataColumnEditCurrencyComponent extends BaseEditStringComponent { }
 
 
 @Component({
@@ -123,7 +160,7 @@ export class DataColumnViewNumberComponent {
     multi: true
 	}]
 })
-export class DataColumnEditNumberComponent extends BaseDataColumnEditComponent { }
+export class DataColumnEditNumberComponent extends BaseEditStringComponent { }
 
 @Component({
 	selector: 'data-column-view-lookup',
@@ -137,11 +174,30 @@ export class DataColumnViewLookupComponent {
 	@Input()
 	options: SelectOption[];
 
-
 	lookup(data: number) {
 		return this.options.find(option => option.value === data).caption;
 	}
 }
+
+@Component({
+	selector: 'data-column-edit-lookup',
+	template: `<select [(ngModel)]="data" (blur)="blur()">
+		<option *ngFor="let option of options" [value]="option.value">
+			{{option.caption}}
+		</option>
+	</select>`,
+	providers: [{
+    provide: NG_VALUE_ACCESSOR,
+    useExisting: forwardRef(() => DataColumnEditLookupComponent),
+    multi: true
+	}]
+})
+export class DataColumnEditLookupComponent extends BaseEditNumberComponent {
+
+	@Input()
+	options: SelectOption[];
+}
+
 
 @Component({
 	selector: 'data-column-view-color',
@@ -165,7 +221,20 @@ export class DataColumnViewColorComponent {
     multi: true
 	}]
 })
-export class DataColumnEditColorComponent extends BaseDataColumnEditComponent { }
+export class DataColumnEditColorComponent extends BaseEditStringComponent {
+
+	constructor() {
+		super();
+		this._data = '#ffffff';
+	}
+
+	writeValue(value: any) {
+		if (!value) {
+			return '#ffffff';
+		}
+		this.data = value;
+  }
+}
 
 @Component({
 	selector: 'data-column-view-buttons',
@@ -232,6 +301,8 @@ export class DataColumnEditButtonsComponent {
 							[(ngModel)]="rowEdit[column.field]"></data-column-edit-number>
 						<data-column-edit-currency *ngSwitchCase=" ${ColumnType.Currency} "
 							[(ngModel)]="rowEdit[column.field]"></data-column-edit-currency>
+						<data-column-edit-lookup *ngSwitchCase=" ${ColumnType.Lookup} "
+							[(ngModel)]="rowEdit[column.field]" [options]='column.options'></data-column-edit-lookup>
 						<data-column-edit-color *ngSwitchCase=" ${ColumnType.Color} "
 							[(ngModel)]="rowEdit[column.field]"></data-column-edit-color>
 						<data-column-edit-string *ngSwitchDefault
@@ -288,7 +359,7 @@ export class DataTableComponent {
 	}
 
 	deleteRow(rowId: number) {
-		this.data.splice(this.data.find(row => row[this.config.idField] === rowId), 1);
+		this.data.splice(this.data.findIndex(row => row[this.config.idField] === rowId), 1);
 	}
 
 	saveRow() {
