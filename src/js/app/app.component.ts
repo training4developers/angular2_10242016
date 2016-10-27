@@ -38,11 +38,11 @@ export class FirstService implements MyService {
 @Component({
 	selector: 'child-demo',
 	template: 'Child Demo<child-demo3></child-demo3>',
-	providers: [ FirstService ]
+	providers: [ { provide: MyServiceToken, useExisting: FirstService } ]
 })
 export class ChildDemo implements OnInit {
 
-	constructor(private firstSvc: FirstService) { }
+	constructor(@Inject(MyServiceToken) private firstSvc: MyService) { }
 
 	ngOnInit() {
 		this.firstSvc.doIt('child-demo');
@@ -80,15 +80,16 @@ export class ChildDemo3 implements OnInit {
 
 @Component({
 	selector: 'my-app',
-	//template: 'App<child-demo></child-demo><child-demo2></child-demo2>',
-	template: '',
-	providers: [
-		{ provide: MyServiceToken, useClass: FirstService }
-	]
+	template: 'App<child-demo></child-demo><child-demo2></child-demo2>',
+	// template: '',
+	// providers: [
+	// 	{ provide: MyServiceToken, useClass: FirstService }
+	// ]
 })
 export class AppComponent implements OnInit {
 
-	constructor(@Inject(MyServiceToken) private mySvc: MyService) { }
+	// constructor(@Inject(MyServiceToken) private mySvc: MyService) { }
+	constructor(private mySvc: FirstService) { }
 
 	ngOnInit() {
 		this.mySvc.doIt('app');
