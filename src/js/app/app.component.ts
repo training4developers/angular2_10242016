@@ -1,7 +1,27 @@
-import { Component, OnInit, Input, ViewEncapsulation } from '@angular/core';
-import { Http, Headers, RequestOptions } from '@angular/http';
+import { Component, OnInit, Input, Injectable, OnDestroy } from '@angular/core';
+import { Http, Headers, RequestOptions, Response } from '@angular/http';
 
-import * as RxJS from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
+
+interface Book {
+	id: number;
+	title: string;
+}
+
+@Injectable()
+export class Books {
+
+	private baseUrl: string = 'http://localhost:3010/books'
+
+	constructor(private http: Http) { }
+
+	getAll(): Observable<Book[]> {
+		return this.http.get(this.baseUrl).map(res => {
+			return <Book[]>res.json();
+		});
+	}
+
+}
 
 @Component({
 	selector: 'li[row-book]',
@@ -15,33 +35,44 @@ export class RowBook {
 
 @Component({
 	selector: 'my-app',
-	template: '<ul><li *ngFor="let book of books" [row-book]="book"></li></ul>'
+	template: '<ul><li *ngFor="let book of bookList" [row-book]="book"></li></ul>',
+	providers: [ Books ]
 })
-export class AppComponent implements OnInit {
+export class AppComponent implements OnInit, OnDestroy {
 
-	constructor(private http: Http) { }
+	constructor(private bookSvc: Books) { }
 
-	books: any[];
+	bookList: Book[];
+
+	booksSubscription: Subscription;
+
+	ngOnDestroy() {
+		this.booksSubscription.unsubscribe();
+	}
 
 	ngOnInit() {
 
-		const bookId = 2;
+		this.booksSubscription = this.bookSvc.getAll().subscribe(books =>
+			this.bookList = books);
 
-		this.http.get(`http://localhost:3010/books/${encodeURIComponent(bookId.toString())}`).toPromise().then(res => {
-			console.dir(res.json());
-		});
+		// const bookId = 2;
 
-		const headers = new Headers({ 'Content-Type': 'application/json' });
-		const requestOptions = new RequestOptions({
-			headers
-		});
+		// this.http.get(`http://localhost:3010/books/${encodeURIComponent(bookId.toString())}`).toPromise().then(res => {
+		// 	console.dir(res.json());
+		// });
 
-		this.http.put('http://localhost:3010/books/2', JSON.stringify({
-			title: 'New Book'
-		}), requestOptions).toPromise().then(res => {
-			console.dir(res.json());
-		}).catch(err => { 
-		});
+		// const headers = new Headers({ 'Content-Type': 'application/json' });
+		// const requestOptions = new RequestOptions({
+		// 	headers
+		// });
+
+		// insert a book
+		// this.http.post('http://localhost:3010/books', JSON.stringify({
+		// 	title: 'New Book'
+		// }), requestOptions).toPromise().then(res => {
+		// 	console.dir(res.json());
+		// }).catch(err => { 
+		// });
 		
 	}
 
