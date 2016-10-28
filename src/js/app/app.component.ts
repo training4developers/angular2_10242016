@@ -1,11 +1,21 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { Http } from '@angular/http';
 
 import * as RxJS from 'rxjs';
 
 @Component({
+	selector: 'li[row-book]',
+	template: '<b>{{book.title}}</b>'
+})
+export class RowBook {
+
+	@Input('row-book')
+	book: any;
+}
+
+@Component({
 	selector: 'my-app',
-	template: '<ul><li *ngFor="let book of books">{{book.title}}</li></ul>'
+	template: '<ul><li *ngFor="let book of books" [row-book]="book"></li></ul>'
 })
 export class AppComponent implements OnInit {
 
