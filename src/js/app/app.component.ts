@@ -1,5 +1,5 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { Http } from '@angular/http';
+import { Component, OnInit, Input, ViewEncapsulation } from '@angular/core';
+import { Http, Headers, RequestOptions } from '@angular/http';
 
 import * as RxJS from 'rxjs';
 
@@ -25,8 +25,22 @@ export class AppComponent implements OnInit {
 
 	ngOnInit() {
 
-		this.http.get('http://localhost:3010/books').toPromise().then(res => {
-			this.books = res.json();
+		const bookId = 2;
+
+		this.http.get(`http://localhost:3010/books/${encodeURIComponent(bookId.toString())}`).toPromise().then(res => {
+			console.dir(res.json());
+		});
+
+		const headers = new Headers({ 'Content-Type': 'application/json' });
+		const requestOptions = new RequestOptions({
+			headers
+		});
+
+		this.http.put('http://localhost:3010/books/2', JSON.stringify({
+			title: 'New Book'
+		}), requestOptions).toPromise().then(res => {
+			console.dir(res.json());
+		}).catch(err => { 
 		});
 		
 	}
