@@ -7,10 +7,10 @@
 			"request": "attach",
 			"port": 9222,
 			"sourceMaps": true,
-			"webRoot": "${workspaceRoot}/dist",
-			"sourceMapPathOverrides": {
- 			   "webpack:///*": "${workspaceRoot}/*"
-			}
+			"webRoot": "${workspaceRoot}/dist"//,
+			// "sourceMapPathOverrides": {
+ 			//    "webpack:///*": "${workspaceRoot}/*"
+			// }
 		}
 	]
 }

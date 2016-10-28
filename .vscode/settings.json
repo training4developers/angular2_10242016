@@ -7,7 +7,7 @@
         "node_modules/": false,
         "dist/": false,
         "reports/": true,
-        ".vscode/": true,
+        ".vscode/": false,
         "typings/": true
     },
      "editor.tabSize": 2,
