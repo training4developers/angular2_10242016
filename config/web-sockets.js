@@ -30,25 +30,25 @@ wss.on('connection', ws => {
 
 	console.log(`web socket connection opened on port ${wsPort}`);
 
-	let counter = 0;
-	let handle;
+	// let counter = 0;
+	// let handle;
 
 	ws.on('close', () => {
 		console.log(`web socket connection closed on port ${wsPort}`);
-		clearInterval(handle);
+		//clearInterval(handle);
 	});
 
-	handle = setInterval(() => {
-		ws.send(JSON.stringify(counter++));
-	}, 500);
+	// handle = setInterval(() => {
+	// 	ws.send(JSON.stringify(counter++));
+	// }, 500);
 
-	// redisClient.then(client => {
-	// 	client.on('message', (change, message) => {
-	// 		console.log(message);
-	// 		ws.send(message);
-	// 	});
-	// 	client.subscribe('update');
-	// });
+	redisClient.then(client => {
+		client.on('message', (change, message) => {
+			console.log(message);
+			ws.send(message);
+		});
+		client.subscribe('update');
+	});
 
  
 });
